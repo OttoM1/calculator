@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"> 
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Multi-Calculator</title>
+    <style>
+       html, body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+           
+margin: 0;
+color: #010101;
+ 
+background: linear-gradient(to right, #010101 0%, 14.638157188892365%, #548E76 29.27631437778473%, 64.63815718889236%, #010101 100%);
+
+
+    background-color: rgb(0, 0, 0);
+            overflow-x: hidden !important;
+            align-content: flex-start;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2.2rem;
+            background: none;
+            padding: 15px;
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        .nav a {
+            color: #010101;
+text-shadow:0 3px 6px #a5ffd8;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 3rem;
+font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap; 
+
+        }
+        .nav a:hover {
+            color: #d7fffd;
+            transform: scale(1.08);
+            background: none;
+        }
+        .calculator {
+            display: none;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+background: none;
+            border-radius: 10px;
+        }
+        .active {
+            display: block;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            font-size: 1rem;
+            border: none;
+            width: 80%;
+            background-color: rgb(168, 168, 168);
+color: #000;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(249, 249, 249);
+font-weight: bold;
+            color: #010101;
+
+            border: none;
+            border-radius: 8px;
+
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #48d0a3;
+            transform: scale(1.1);
+        }
+
+        @media screen and (orientation: landscape) and (max-width: 1000px) {
+        button {
+                font-weight: bold;
+                font-size: 1rem;
+                padding-bottom: 4vh;
+            }
+.nav {
+    gap: 0.2rem;
+}
+.nav a {
+    font-size: 3.2vw;
+    font-weight: bold !important;
+}
+
+html, body {
+    background: linear-gradient(to right, #010101 0%, 14.638157188892365%, #548E76 29.27631437778473%, 64.63815718889236%, #010101 100%);
+height: 100vh;
+min-height: 100vh;
+width: 100vw;
+    background-color: rgb(0, 0, 0);
+}
+::-webkit-scrollbar {
+    visibility: hidden;
+    display: none;
+}
+input {
+    background-color: rgb(168, 168, 168);
+    color: #010101;
+
+}
+        
+.calculator {
+    color: #010101;
+
+}
+        }
+        @media (max-width: 516px) {
+            button {
+                font-weight: bold;
+                font-size: 1rem;
+            }
+.nav {
+    gap: 0.2rem;
+}
+.nav a {
+    font-size: 1.2rem;
+    font-weight: bold !important;
+}
+
+html, body {
+    background: linear-gradient(to right, #010101 0%, 14.638157188892365%, #548E76 29.27631437778473%, 64.63815718889236%, #010101 100%);
+height: 100vh;
+min-height: 100vh;
+width: 100vw;
+    background-color: rgb(0, 0, 0);
+}
+::-webkit-scrollbar {
+    visibility: hidden;
+    display: none;
+}
+input {
+    background-color: rgb(168, 168, 168);
+    color: #010101;
+
+}
+        
+.calculator {
+    color: #010101;
+
+}
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a onclick="showCalculator('quadratic')">Quadratic,</a>
+        <a onclick="showCalculator('arithmetic')">Arithmetic,</a>
+        <a onclick="showCalculator('geometric')">Geometric,</a>
+        <a onclick="showCalculator('hypotenuse')">Hypotenuse,</a>
+        <a onclick="showCalculator('loan')">Loan,</a>
+        <a onclick="showCalculator('month')">Monthly Loan,</a>
+        <a onclick="showCalculator('compound')">Compound Interest</a>
+    </div>
+
+    <div id="hypotenuse" class="calculator active">
+        <h2>Hypotenuse Calculator</h2>
+        <label>Side A length: <input type="number" id="sideA"></label><br>
+        <label>Side B length: <input type="number" id="sideB"></label><br>
+        <button onclick="calculateHypotenuse()">Calculate</button>
+        <p id="hypotenuseResult"></p>
+    </div>
+
+    <div id="compound" class="calculator">
+        <h2>Compound Interest Loan Calculator</h2>
+        <label>Loan Amount (€): <input type="number" id="camount"></label><br>
+        <label>Annual Interest Rate (%): <input type="number" id="crate"></label><br>
+        <label>Time (Years): <input type="number" id="cyears"></label><br>
+        <button onclick="calculateCompoundInterest()">Calculate</button>
+        <p id="cresult"></p>
+    </div>
+
+    <div id="arithmetic" class="calculator">
+        <h2>Arithmetic Sequence Calculator</h2>
+        <label>First Term (a1): <input type="number" id="arithA"></label><br>
+        <label>Common Difference (d): <input type="number" id="arithD"></label><br>
+        <label>Number of Terms (n): <input type="number" id="arithN"></label><br>
+        <button onclick="calculateArithmeticSequence()">Calculate</button>
+        <p id="arithmeticresult"></p>
+    </div>
+
+    <div id="geometric" class="calculator">
+        <h2>Geometric Sequence Calculator</h2>
+        <label>First Term (a1): <input type="number" id="a"></label><br>
+        <label>Common Ratio (r): <input type="number" id="r"></label><br>
+        <label>Number of Terms (n): <input type="number" id="n"></label><br>
+        <button onclick="calculateGeometricSequence()">Calculate</button>
+        <p id="georesult"></p>
+    </div>
+    <div id="loan" class="calculator">
+        <h2>Loan Interest Calculator</h2>
+        <label>Loan Amount (€): <input type="number" id="loanAmount"></label><br>
+        <label>Annual Interest Rate (%): <input type="number" id="loanRate"></label><br>
+        <label>Time (Years): <input type="number" id="loanYears"></label><br>
+        <button onclick="calculateLoan()">Calculate</button>
+        <p id="loanResult"></p>
+    </div>
+
+
+
+    <div id="month" class="calculator">
+        <h2>Loan Monthly Payment Calculator</h2>
+        <label>Loan Amount (€): <input type="number" id="amount"></label><br>
+        <label>Annual Interest Rate (%): <input type="number" id="rate"></label><br>
+        <label>Time (Years): <input type="number" id="years"></label><br>
+        <button onclick="calculateMonthlyPayment()">Calculate</button>
+        <p id="mresult"></p>
+    </div>
+
+    <div id="quadratic" class="calculator">
+        <h2>Quadratic Equation Solver</h2>
+        <label>a: <input type="number" id="quadA"></label><br>
+        <label>b: <input type="number" id="quadB"></label><br>
+        <label>c: <input type="number" id="quadC"></label><br>
+        <button onclick="solveQuadratic()">Calculate</button>
+        <p id="quadraticResult"></p>
+    </div>
+
+    <script>
+        function showCalculator(calculatorId) {
+            let calculators = document.querySelectorAll(".calculator");
+            calculators.forEach(calc => calc.classList.remove("active"));
+
+            document.getElementById(calculatorId).classList.add("active");
+        }
+
+        function calculateHypotenuse() {
+            let a = parseFloat(document.getElementById("sideA").value);
+            let b = parseFloat(document.getElementById("sideB").value);
+
+            if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0) {
+                document.getElementById("hypotenuseResult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+            document.getElementById("hypotenuseResult").innerText = "Hypotenuse is: " + c.toFixed(2);
+        }
+
+        function calculateLoan() {
+            let amount = parseFloat(document.getElementById("loanAmount").value);
+            let rate = parseFloat(document.getElementById("loanRate").value);
+            let years = parseFloat(document.getElementById("loanYears").value);
+
+            if (isNaN(amount) || isNaN(rate) || isNaN(years) || amount <= 0 || rate < 0 || years <= 0) {
+                document.getElementById("loanResult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let totalAmount = amount * (1 + (rate * (years / 100)));
+            document.getElementById("loanResult").innerText = `Total Amount to Pay: €${totalAmount.toFixed(2)}`;
+        }
+
+        function solveQuadratic() {
+            let a = parseFloat(document.getElementById("quadA").value);
+            let b = parseFloat(document.getElementById("quadB").value);
+            let c = parseFloat(document.getElementById("quadC").value);
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                document.getElementById("quadraticResult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let D = b * b - 4 * a * c;
+            if (D > 0) {
+                let x1 = (-b + Math.sqrt(D)) / (2 * a);
+                let x2 = (-b - Math.sqrt(D)) / (2 * a);
+                document.getElementById("quadraticResult").innerText = `Real Solutions: x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
+            } else if (D === 0) {
+                let x = -b / (2 * a);
+                document.getElementById("quadraticResult").innerText = `One Real Solution: x = ${x.toFixed(2)}`;
+            } else {
+                let realPart = (-b / (2 * a)).toFixed(2);
+                let imaginaryPart = (Math.sqrt(-D) / (2 * a)).toFixed(2);
+                document.getElementById("quadraticResult").innerText = `Complex Solutions: x1 = ${realPart} + ${imaginaryPart}i, x2 = ${realPart} - ${imaginaryPart}i`;
+            }
+        }
+
+        function geometricSequence(a, n, r) {
+            let nthTerm = a * Math.pow(r, n - 1);
+
+            let sum = (r !== 1) ? (a * (1 - Math.pow(r, n))) / (1 - r) : a * n;
+
+            return { nthTerm: nthTerm, sum: sum };
+        }
+
+        function calculateGeometricSequence() {
+            let a = parseFloat(document.getElementById("a").value);
+            let n = parseInt(document.getElementById("n").value);
+            let r = parseFloat(document.getElementById("r").value);
+
+            if (isNaN(a) || isNaN(n) || isNaN(r) || n <= 0) {
+                document.getElementById("georesult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let result = geometricSequence(a, n, r);
+            document.getElementById("georesult").innerText =
+                `Nth Term: ${result.nthTerm.toFixed(2)}, Sum of Sequence: ${result.sum.toFixed(2)}`;
+        }
+
+
+        function arithmeticSequence(a, d, n) {
+        let nthTerm = a + (n - 1) * d;
+        let sum = (n / 2) * (a + nthTerm);
+        return { nthTerm: nthTerm, sum: sum };
+    }
+
+    function calculateArithmeticSequence() {
+        let a = parseFloat(document.getElementById("arithA").value);
+        let d = parseFloat(document.getElementById("arithD").value);
+        let n = parseInt(document.getElementById("arithN").value);
+
+        if (isNaN(a) || isNaN(d) || isNaN(n) || n <= 0) {
+            document.getElementById("arithmeticresult").innerText = "Please enter valid numbers!";
+            return;
+        }
+
+        let result = arithmeticSequence(a, d, n);
+        document.getElementById("arithmeticresult").innerText =
+            `Nth Term: ${result.nthTerm.toFixed(2)}, Sum of Sequence: ${result.sum.toFixed(2)}`;
+    }
+
+
+    function calculateMonthlyPayment() {
+            let P = parseFloat(document.getElementById("amount").value);
+            let annualRate = parseFloat(document.getElementById("rate").value);
+            let years = parseFloat(document.getElementById("years").value);
+
+            if (isNaN(P) || isNaN(annualRate) || isNaN(years) || P <= 0 || annualRate < 0 || years <= 0) {
+                document.getElementById("mresult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let r = (annualRate / 100) / 12;
+
+            let n = years * 12;
+
+            let A = P * (r / (1 - Math.pow(1 + r, -n)));
+
+            document.getElementById("mresult").innerText = `Monthly Payment: €${A.toFixed(2)}`;
+        }
+
+
+        function calculateCompoundInterest() {
+            let amount = parseFloat(document.getElementById("camount").value);
+            let rate = parseFloat(document.getElementById("crate").value);
+            let years = parseFloat(document.getElementById("cyears").value);
+
+            if (isNaN(amount) || isNaN(rate) || isNaN(years) || amount <= 0 || rate < 0 || years <= 0) {
+                document.getElementById("cresult").innerText = "Please enter valid numbers!";
+                return;
+            }
+
+            let totalAmount = amount * Math.pow((1 + (rate / 100)), years);
+            let earnedInterest = totalAmount - amount;
+
+            document.getElementById("cresult").innerText = 
+                `Total Amount to Pay: €${totalAmount.toFixed(2)}, Earned Interest: €${earnedInterest.toFixed(2)}`;
+        }
+    </script>
+
+
+
+</body>
+
+</html>
